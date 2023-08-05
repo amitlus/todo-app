@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { getSession } from "next-auth/react";
+import { GetSessionParams, getSession } from "next-auth/react";
 import TodosTable from "@/components/TodosTable";
 
 export interface TodoInstance {
@@ -13,7 +13,9 @@ export interface TodoInstance {
 }
 
 // This gets called on every request
-export async function getServerSideProps(context) {
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
   const session = await getSession(context); // Use getSession to access the session
   const username = session?.user?.name ?? ""; // Get the username from the session if it exists
   // Fetch data from external API using the username

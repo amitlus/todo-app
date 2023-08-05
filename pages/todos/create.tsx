@@ -16,9 +16,12 @@ export default function CreateTodo() {
     register,
     formState: { errors },
   } = useForm<IFormInput>();
-
   const { data: session, status } = useSession();
   const navigate = useRouter();
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  };
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     if (session?.user) {
@@ -45,10 +48,12 @@ export default function CreateTodo() {
     }
   };
 
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked);
+  const isDateNotEarlierThanToday = (selectedDate: Date) => {
+    const today = new Date();
+    //Handle time zone differences or precision in comparing dates with times
+    today.setHours(0, 0, 0, 0);
+    selectedDate.setHours(0, 0, 0, 0);
+    return selectedDate >= today;
   };
 
   return (
@@ -67,14 +72,21 @@ export default function CreateTodo() {
 
         <div className="mb-4">
           <input
-            {...register("dueDate", { required: true, valueAsDate: true })}
+            {...register("dueDate", {
+              required: true,
+              valueAsDate: true,
+              validate: {
+                notEarlierThanToday: (value) =>
+                  isDateNotEarlierThanToday(value),
+              },
+            })}
             type="date"
             className="border rounded p-2 w-full"
             placeholder="Due Date"
           />
-          {errors.dueDate && (
+          {errors.dueDate?.type === "notEarlierThanToday" && (
             <span className="text-red-500">
-              This field is required & supposed to be a valid date!
+              Due date must be today or later
             </span>
           )}
         </div>

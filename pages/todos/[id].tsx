@@ -1,14 +1,16 @@
 import axios from "axios";
-import { getSession } from "next-auth/react";
+import { GetSessionParams, getSession } from "next-auth/react";
 import { TodoInstance } from ".";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IFormInput } from "./create";
 import { useRouter } from "next/navigation";
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
   const session = await getSession(context);
   const username = session?.user?.name ?? "";
-  const { id } = context.params; // Access the dynamic 'id' part from the URL & use curly braces {} for destructuring
+  const { id } = context?.params; // Access the dynamic 'id' part from the URL & use curly braces {} for destructuring
   let data: TodoInstance | null = null;
   try {
     const response = await axios.get(

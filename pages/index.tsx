@@ -1,9 +1,11 @@
-import { getSession, useSession } from "next-auth/react";
+import { GetSessionParams, getSession, useSession } from "next-auth/react";
 import Image from "next/image";
 import { TodoInstance } from "./todos";
 import axios from "axios";
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
   const session = await getSession(context);
   const username = session?.user?.name ?? "";
   let data: TodoInstance[] = [];
@@ -16,13 +18,12 @@ export async function getServerSideProps(context) {
     console.log(error);
   }
 
-  // Pass data to the page via props
   return { props: { data, session } };
 }
 
 function Home({ data }) {
   const { data: session } = useSession();
-  const username = session?.user?.name ?? ""; // Get the username from the session if it exists
+  const username = session?.user?.name ?? "";
   const profilePicture = session?.user?.image ?? "";
 
   return (
@@ -44,7 +45,7 @@ function Home({ data }) {
           <br></br>
           <p className="text-2xl font-bold">High-Priority Todos</p>
           <ul className="mt-4 space-y-2">
-            {data.map((todo) => (
+            {data.map((todo: TodoInstance) => (
               <li
                 key={todo.id}
                 className="px-4 py-2 bg-green-400 text-white rounded-md"

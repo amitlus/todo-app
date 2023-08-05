@@ -1,11 +1,11 @@
 import { TodoInstance } from "@/pages/todos";
 
-const TodosTable: React.FC<TodoInstance> = ({
-  todoList,
-  onDelete,
-  onUpdate,
-  onAdd,
-}) => {
+const TodosTable: React.FC<{
+  todoList: TodoInstance[];
+  onDelete: (id: string, username: string) => void;
+  onUpdate: (id: string) => void;
+  onAdd: () => void;
+}> = ({ todoList, onDelete, onUpdate, onAdd }) => {
   return (
     <div>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
