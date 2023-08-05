@@ -1,34 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Welcome to my Todo-App!
 
-## Getting Started
+## Fullstack Todo App using React, Next.js Java & Spring boot
 
-First, run the development server:
+You can find the Server side code using Java & Spring boot in [here](https://github.com/amitlus/todo-app-Server).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Before running the App
+If you want the app to work properly, you should connect a database to it.
+I recommend using MySQL for that project by running it with Docker.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Install Docker engine from [here](https://docs.docker.com/engine/install/).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Command to run MySQL in my Docker:**
+docker run --detach --env MYSQL_ROOT_PASSWORD=rootpassword --env MYSQL_USER=todos-user --env MYSQL_PASSWORD=password--env MYSQL_DATABASE=todos --name mysql --publish 3306:3306 mysql:8-oracle
+**(Change the password and user to what ever you want)**
 
-## Learn More
+On the Server, add to **application.properties** the following lines:
+spring.jpa.hibernate.ddl-auto=update  
+spring.datasource.url=jdbc:mysql://localhost:3306/todos  
+spring.datasource.username=todos-user  
+spring.datasource.password=password
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
-To learn more about Next.js, take a look at the following resources:
+**All the other data including CORS enable and dependencies are provided, just install resources and load Mavenon the Server side**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## The fun part
+Currently the Application is kinda basic, I'll improve that in the future.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Home screen**
 
-## Deploy on Vercel
+![image](https://github.com/amitlus/todo-app-Client/assets/58470929/588f5f3f-3831-415a-8af7-109764a1901f)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Todos screen**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![image](https://github.com/amitlus/todo-app-Client/assets/58470929/9d5ed540-fee3-46e6-8cea-1a0f2133d2d2)
+
+**Update screen**
+
+![image](https://github.com/amitlus/todo-app-Client/assets/58470929/1184704f-26f7-4f83-bc79-f68a81cb0034)
+
+**Some Validations**
+
+![image](https://github.com/amitlus/todo-app-Client/assets/58470929/f609156a-d8b9-46dd-810a-ad8579d5b13e)
+
+
+
