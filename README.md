@@ -1,9 +1,8 @@
+
 # Welcome to my Todo-App!
 
 ## Fullstack Todo App using React, Next.js Java & Spring boot
-
 You can find the Server side code using Java & Spring boot in [here](https://github.com/amitlus/todo-app-Server).
-
 
 # Before running the App
 If you want the app to work properly, you should connect a database to it.
@@ -27,6 +26,41 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ## The fun part
 Currently the Application is kinda basic, I'll improve that in the future.
 
+### Features
+**Home page** which displays your personal information including username and photo.
+It also List your 3 most urgent tasks.
+
+**Todos page**
+Displays your tasks including Description, Due Date & Status.
+Let you Delete or Update each task.
+Add Todo button for creating a new task.
+
+**Future features**
+**1. Friends List**- with an option to tag friends related to your task.
+**2. Media Field**- you will be able to upload relevant media files for  
+                                  each task.
+**3. Status Bar**- which will present your progress in tasks. 
+
+### Tech Stack
+**Frontend:**
+* Typescript, Javascript
+* React, Next.js
+* Axios, next-auth, reack-hook-form
+* TailwindCSS
+
+**Backend:**
+* Java, Spring boot
+* MySQL
+* Docker
+* Maven
+* Lombok
+
+**Other:**
+* Validations 
+* Authentication (OAuth) 
+* Middleware
+
+## Some Screenshots
 **Home screen**
 
 ![image](https://github.com/amitlus/todo-app-Client/assets/58470929/588f5f3f-3831-415a-8af7-109764a1901f)
@@ -43,5 +77,6 @@ Currently the Application is kinda basic, I'll improve that in the future.
 
 ![image](https://github.com/amitlus/todo-app-Client/assets/58470929/f609156a-d8b9-46dd-810a-ad8579d5b13e)
 
-
-
+**Need to Fix/Add**
+* isDone checkbox
+* Add both Backend tests and Frontend tests (Unit tests, Integration tests, E2E tests using Cypress)
