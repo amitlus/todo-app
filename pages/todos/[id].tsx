@@ -4,6 +4,7 @@ import { TodoInstance } from ".";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IFormInput } from "./create";
 import { useRouter } from "next/navigation";
+import { isDateNotEarlierThanToday } from "@/validations";
 
 export async function getServerSideProps(
   context: GetSessionParams | undefined
@@ -75,7 +76,14 @@ function Todo({ data, session, id }) {
 
         <div className="mb-4">
           <input
-            {...register("dueDate", { required: true, valueAsDate: true })}
+            {...register("dueDate", {
+              required: true,
+              valueAsDate: true,
+              validate: {
+                notEarlierThanToday: (value) =>
+                  isDateNotEarlierThanToday(value),
+              },
+            })}
             type="date"
             className="border rounded p-2 w-full"
             placeholder="Due Date"

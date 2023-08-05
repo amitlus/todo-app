@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { isDateNotEarlierThanToday } from "@/validations";
 
 export interface IFormInput {
   description: string;
@@ -46,14 +47,6 @@ export default function CreateTodo() {
     } else {
       console.log("You have to be loggedin in order to add a Todo task!");
     }
-  };
-
-  const isDateNotEarlierThanToday = (selectedDate: Date) => {
-    const today = new Date();
-    //Handle time zone differences or precision in comparing dates with times
-    today.setHours(0, 0, 0, 0);
-    selectedDate.setHours(0, 0, 0, 0);
-    return selectedDate >= today;
   };
 
   return (
