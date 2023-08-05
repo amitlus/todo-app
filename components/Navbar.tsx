@@ -1,18 +1,16 @@
 import Link from "next/link";
-import NavItem from "./NavItem";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import NavItem from "./NavItem";
 
 const Navbar = () => {
   const router = useRouter();
-  //Todo: Add a CSS for active nav items.
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const MENU_LIST_ACTIVE = [
     { text: "Todos", href: "/todos" },
-    { text: "Profile", href: "/profile" },
     { text: "Logout", href: "/api/auth/signout" },
   ];
 
@@ -22,15 +20,20 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="nav">
+      <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
         {/* Logo/Title */}
-        <Link href="/">Todo-App</Link>
+        <Link href="/" className="text-2xl font-bold">
+          Todo-App
+        </Link>
         {/* Menu List */}
-        <div className="nav__menu-list">
+        <div className="flex space-x-4">
           {navOptions.map((menu) => (
-            <div key={menu.text}>
-              <NavItem text={menu.text} href={menu.href} />
-            </div>
+            <NavItem
+              key={menu.text}
+              text={menu.text}
+              href={menu.href}
+              isActive={isActive(menu.href)}
+            />
           ))}
         </div>
       </nav>

@@ -39,7 +39,7 @@ const TodosTable: React.FC<TodoInstance> = ({
               <td>
                 {" "}
                 <button
-                  className="btn btn-warning"
+                  className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-300 font-medium rounded-full text-sm px-2 py-1 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                   onClick={() => onDelete(todo.id, todo.username)}
                 >
                   Delete
@@ -48,7 +48,7 @@ const TodosTable: React.FC<TodoInstance> = ({
               <td>
                 {" "}
                 <button
-                  className="btn btn-success"
+                  className="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 font-medium rounded-full text-sm px-2 py-1 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
                   onClick={() => onUpdate(todo.id)}
                 >
                   Update

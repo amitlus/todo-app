@@ -72,9 +72,15 @@ function TodoList({ data }) {
         onUpdate={updateTodoHandler}
         onAdd={addTodoHandler}
       ></TodosTable>
-      <button className="btn btn-success" onClick={() => addTodoHandler()}>
-        Add Todo
-      </button>
+      <br></br>
+      <div className="flex flex-col items-center justify-center">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => addTodoHandler()}
+        >
+          Add Todo
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,34 +1,45 @@
 import axios from "axios";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { getSession } from "next-auth/react";
+import { TodoInstance } from ".";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { IFormInput } from "./create";
 import { useRouter } from "next/navigation";
 
-export interface IFormInput {
-  description: string;
-  dueDate: Date;
-  isDone: boolean;
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  const username = session?.user?.name ?? "";
+  const { id } = context.params; // Access the dynamic 'id' part from the URL & use curly braces {} for destructuring
+  let data: TodoInstance | null = null;
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/users/${username}/todos/${id}`
+    );
+    data = response.data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  // Pass data to the page via props
+  return { props: { data, session, id } };
 }
 
-export default function CreateTodo() {
+function Todo({ data, session, id }) {
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<IFormInput>();
-
-  const { data: session, status } = useSession();
   const navigate = useRouter();
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
     if (session?.user) {
       axios
-        .post(`http://localhost:8080/users/${session?.user?.name}/todos`, {
-          id: 1, //Need to declare a global counter that increases/decreases according to Todo being created/deleted
+        .put(`http://localhost:8080/users/${session?.user?.name}/todos/${id}`, {
+          id: id,
           username: session?.user?.name,
-          description: data.description,
-          dueDate: data.dueDate,
-          isDone: data.isDone,
+          description: formData.description,
+          dueDate: formData.dueDate,
+          isDone: formData.isDone,
         })
 
         .then((response) => {
@@ -45,12 +56,6 @@ export default function CreateTodo() {
     }
   };
 
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked);
-  };
-
   return (
     <div className="p-4">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto">
@@ -59,6 +64,7 @@ export default function CreateTodo() {
             {...register("description", { required: true, maxLength: 20 })}
             className="border rounded p-2 w-full"
             placeholder="Description"
+            defaultValue={data?.description}
           />
           {errors.description && (
             <span className="text-red-500">This field is required</span>
@@ -71,6 +77,11 @@ export default function CreateTodo() {
             type="date"
             className="border rounded p-2 w-full"
             placeholder="Due Date"
+            defaultValue={
+              data?.dueDate
+                ? new Date(data.dueDate).toLocaleDateString("en-CA")
+                : ""
+            }
           />
           {errors.dueDate && (
             <span className="text-red-500">
@@ -84,9 +95,8 @@ export default function CreateTodo() {
             <input
               type="checkbox"
               {...register("isDone")}
-              checked={isChecked}
-              onChange={handleCheckboxChange}
               className="border rounded p-2 mr-2"
+              defaultValue={data?.isDone}
             />
             Is Done
           </label>
@@ -102,3 +112,4 @@ export default function CreateTodo() {
     </div>
   );
 }
+export default Todo;
