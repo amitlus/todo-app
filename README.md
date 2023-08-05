@@ -86,5 +86,7 @@ Here are some screenshots of the application:
 
 -   Implement the isDone checkbox functionality.
 -   Add both backend and frontend tests (Unit tests, Integration tests, E2E tests using Cypress).
+-   Add Swagger Documentation.
+
 
 Feel free to explore the project and contribute to its enhancement! Happy coding!
