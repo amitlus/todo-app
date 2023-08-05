@@ -65,15 +65,16 @@ function TodoList({ data }) {
   }
 
   return (
-    <div>
-      <TodosTable
-        todoList={todoList}
-        onDelete={deleteTodoHandler}
-        onUpdate={updateTodoHandler}
-        onAdd={addTodoHandler}
-      ></TodosTable>
-      <br></br>
-      <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col">
+      <div className="flex-1 mb-20">
+        <TodosTable
+          todoList={todoList}
+          onDelete={deleteTodoHandler}
+          onUpdate={updateTodoHandler}
+          onAdd={addTodoHandler}
+        />
+      </div>
+      <div className="fixed bottom-8 right-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => addTodoHandler()}

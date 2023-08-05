@@ -42,10 +42,15 @@ function Home({ data }) {
       {session && (
         <>
           <br></br>
-          <p className="text-3xl font-bold">Your top urgent Todos:</p>
-          <ul>
+          <p className="text-2xl font-bold">High-Priority Todos</p>
+          <ul className="mt-4 space-y-2">
             {data.map((todo) => (
-              <li key={todo.id}>{todo.description}</li>
+              <li
+                key={todo.id}
+                className="px-4 py-2 bg-green-400 text-white rounded-md"
+              >
+                {todo.description}
+              </li>
             ))}
           </ul>
         </>
