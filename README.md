@@ -20,7 +20,7 @@ Don't forget to modify the password and username to your preference.
 
 In the server's `application.properties` file, add the following lines:
 
-arduinoCopy code
+Command line code
 
 `spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:mysql://localhost:3306/todos
